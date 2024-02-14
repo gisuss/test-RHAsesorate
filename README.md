@@ -57,8 +57,8 @@ Once you have completed all tasks, submit your work as instructed.
 * Use inertia to connect backend and frontend
 
 ## Developer
-Name: `<your name>` <br/>
-Email: `<your email>`<br/>
+Name: `Jesus Romero` <br/>
+Email: `gisuss8520@gmail.com`<br/>
 
 ## Instructions
 ### DO NOT START A NEW LARAVEL APP, USE THIS BOILERPLATE INSTEAD !!
