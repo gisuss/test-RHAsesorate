@@ -17,7 +17,8 @@
                                 color="blue"
                                 variant="tonal"
                                 rounded="lg"
-                                @click="randomQuotes"
+                                :disabled="disabledBtn"
+                                @click="randomQuotes(2000, 'disabledBtn')"
                             >
                                 <v-icon icon="$reload" class="mr-4" />
                                 Reload
@@ -62,6 +63,7 @@
         data() {
             return {
                 quotes: [],
+                disabledBtn: false,
             };
         },
         created() {
@@ -81,8 +83,12 @@
                     }
                 }
             },
-            randomQuotes() {
+            randomQuotes(timeOutBtn, btn) {
+                this[btn] = true;
+
                 this.getQuote();
+
+                setTimeout(() => this[btn] = false, timeOutBtn);
             },
             toFav(id) {
                 let fd = {
