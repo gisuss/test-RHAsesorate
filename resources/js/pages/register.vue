@@ -154,10 +154,11 @@
             let errors = ref([])
 
             const register = async() =>{
-                await axios.post('/api/auth/register',form).then(res=>{
-                    if(res.data.success) {
-                        store.dispatch('setToken',res.data.data.token)
-                        router.push({name:'Dashboard'})
+                await axios.post('/api/auth/register',form).then(res => {
+                    console.log(res);
+                    if(res.status == 200) {
+                        // store.dispatch('setToken',res.data.data.token),
+                        router.push({name:'Login'});
                     }
                 }).catch(e=>{
                     errors.value = e.response.data.errors

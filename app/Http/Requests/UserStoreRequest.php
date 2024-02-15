@@ -48,7 +48,11 @@ class UserStoreRequest extends FormRequest
             'lastname.regex' => 'The :attribute It should only contain letters and spaces.',
             'role.required' => 'The :attribute is required.',
             'role.exists' => 'The :attribute does not exist.',
-            'confirm_password.required' => 'The :attribute is required.',
+            'password.required' => 'The :attribute is required.',
+            'password.required' => 'The :attribute is required.',
+            'confirm_password.string' => 'The :attribute must be string.',
+            'confirm_password.min' => 'The :attribute must be at least 8 characters.',
+            'confirm_password.max' => 'The :attribute must be less than 16 characters.',
             'confirm_password.same' => 'The :attribute must be same that password.',
         ];
     }
@@ -65,17 +69,8 @@ class UserStoreRequest extends FormRequest
             'lastname' => 'required|string|max:255|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email|max:255|unique:users,email',
             'role' => 'required|string|exists:roles,name',
-            'password' => [
-				'required',
-				'max:16',
-				Password::min(8)
-						// ->mixedCase()
-						->letters()
-						// ->numbers()
-						// ->symbols()
-						// ->uncompromised(),
-            ],
+            'password' => ['required','string','min:8','max:16'],
             'confirm_password' => 'required|same:password',
-          ];
+        ];
     }
 }
