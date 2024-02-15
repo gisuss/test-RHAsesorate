@@ -3,9 +3,10 @@ import home from './pages/home.vue';
 import login from './pages/login.vue';
 import register from './pages/register.vue';
 import dashboard from './pages/dashboard.vue';
-import favs from './pages/favs.vue'
-import profile from './pages/profile.vue'
-import store from './store/index.js'
+import favs from './pages/favs.vue';
+import profile from './pages/profile.vue';
+import users from './pages/users.vue';
+import store from './store/index.js';
 
 const routes = [
     {
@@ -49,6 +50,14 @@ const routes = [
         path : '/profile',
         name : 'Profile',
         component : profile,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path : '/users',
+        name : 'Users',
+        component : users,
         meta:{
             requiresAuth:true
         }

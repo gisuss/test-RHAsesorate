@@ -1,10 +1,10 @@
 <template>
-    <div class="container pa-4">
+    <div class="container py-6 px-4">
         <div class="row justify-content-center">
             <v-card
                 flat
                 max-width="100%"
-                rounded="8px"
+                rounded="lg"
                 >
                 <v-card-title>
                     <v-row>
@@ -22,13 +22,12 @@
                             </v-btn>
                         </v-col>
                     </v-row>
-                    
                 </v-card-title>
                 <v-card-text>
                     <v-container fluid>
                         <v-row>
                             <v-col v-for="quote in quotes" :key="quote.id" cols="4">
-                                <v-card rounded="lg" height="270" class="pa-2">
+                                <v-card rounded="lg" hover min-width="150px" height="270" class="pa-2">
                                     <v-card-title>
                                         <v-row>
                                             <v-col>Quote #{{ quote.id }}</v-col>

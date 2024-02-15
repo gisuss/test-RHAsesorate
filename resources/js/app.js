@@ -10,7 +10,7 @@ import app from './layouts/App.vue'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
-import { mdiAccount, mdiAccountPlus, mdiChevronRight, mdiEmail, mdiEye, mdiEyeOff, mdiHeart, mdiHome, mdiLock, mdiLogin, mdiLogout, mdiReload, mdiStar, mdiTrashCan, mdiViewDashboard } from '@mdi/js'
+import { mdiAccount, mdiAccountPlus, mdiAccountSupervisor, mdiChevronRight, mdiEmail, mdiEye, mdiEyeOff, mdiHeart, mdiHome, mdiLock, mdiLogin, mdiLogout, mdiReload, mdiStar, mdiTrashCan, mdiViewDashboard } from '@mdi/js'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
@@ -36,6 +36,7 @@ const vuetify = createVuetify({
       chevron_right: mdiChevronRight,
       heart: mdiHeart,
       trash: mdiTrashCan,
+      users: mdiAccountSupervisor,
     },
     sets: {
       mdi,

@@ -19,6 +19,10 @@ class Quote extends Model
         'quote_id'
     ];
 
+    public function scopeFilterUser ($query, $user_id) {
+        $query->where('user_id', $user_id)->orderBy('id', 'desc');
+    }
+
     public function favs() {
         return $this->hasMany(User::class, 'user_id');
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="py-4">
+    <div class="py-6 px-4">
         <v-img
             class="mx-auto my-6"
             max-width="228"
@@ -23,6 +23,7 @@
             class="mx-auto pa-12 pb-8"
             elevation="8"
             max-width="448"
+            min-width="400"
             rounded="lg"
         >
             <div class="text-subtitle-1 text-medium-emphasis">First Name</div>
@@ -32,7 +33,8 @@
                 placeholder="John"
                 prepend-inner-icon="$account"
                 variant="outlined"
-                v-model="form.name"
+                v-model.trim="form.name"
+                :rules="[rules.required]"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">Last Name</div>
@@ -42,7 +44,9 @@
                 placeholder="Doe"
                 prepend-inner-icon="$account"
                 variant="outlined"
-                v-model="form.lastname"
+                v-model.trim="form.lastname"
+                :rules="[rules.required]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
@@ -52,19 +56,22 @@
                 placeholder="johndoe@example.com"
                 prepend-inner-icon="$email"
                 variant="outlined"
-                v-model="form.email"
+                v-model.trim="form.email"
+                :rules="[rules.email, rules.required]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">Role</div>
 
-            <v-autocomplete
-                v-model="form.role"
+            <v-combobox
+                v-model.trim="form.role"
                 :items="roles"
                 density="compact"
                 variant="outlined"
                 clearable
-                chips
-            ></v-autocomplete>
+                :rules="[rules.required]"
+                class="mt-2"
+            ></v-combobox>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Password</div>
 
@@ -76,7 +83,9 @@
                 prepend-inner-icon="$password"
                 variant="outlined"
                 @click:append-inner="visible1 = !visible1"
-                v-model="form.password"
+                v-model.trim="form.password"
+                :rules="[rules.required, rules.counter]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Confirm Password</div>
@@ -89,11 +98,13 @@
                 prepend-inner-icon="$password"
                 variant="outlined"
                 @click:append-inner="visible2 = !visible2"
-                v-model="form.confirm_password"
+                v-model.trim="form.confirm_password"
+                :rules="[rules.required, rules.counter]"
+                class="mt-2"
             ></v-text-field>
 
             <v-card
-                class="mb-12"
+                class="mt-4 mb-12"
                 color="surface-variant"
                 variant="tonal"
             >
@@ -131,43 +142,51 @@
 <script>
     import { reactive,ref } from 'vue'
     import { useRouter } from "vue-router"
-    import { useStore } from 'vuex'
 
     export default {
-        data: () => ({
-            visible1: false,
-            visible2: false,
-            roles: ['Admin', 'Client'],
-        }),
         setup() {
-            const router = useRouter()
-            const store = useStore()
+            const router = useRouter();
 
+            let rules = {
+				required: value => !!value || 'Field required.',
+				counter: value => value.length <= 16 || 'Maximum 16 characters.',
+				email: value => {
+					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+					return pattern.test(value) || 'Invalid e-mail.'
+				},
+			};
             let form = reactive({
                 name: '',
                 lastname: '',
                 email: '',
                 password: '',
                 role: '',
-                confirm_password: '',
+                confirm_password: ''
             });
-            let errors = ref([])
+            let roles = ['Admin', 'Client'];
+            let errors = ref([]);
+            let visible1 = ref(false);
+            let visible2 = ref(false);
 
-            const register = async() =>{
+            const register = async() => {
                 await axios.post('/api/auth/register',form).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if(res.status == 200) {
-                        // store.dispatch('setToken',res.data.data.token),
                         router.push({name:'Login'});
                     }
                 }).catch(e=>{
-                    errors.value = e.response.data.errors
+                    errors.value = e.response.data.errors;
                 })
             }
-            return{
+
+            return {
                 form,
                 register,
-                errors
+                errors,
+                roles,
+                visible1,
+                visible2,
+                rules
             }
         }
     }

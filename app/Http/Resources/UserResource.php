@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Quote;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -26,13 +27,17 @@ class UserResource extends JsonResource
             }
         }
 
+        $quotes = Quote::filteruser($this->id)->count();
+
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'lastname' => $this->lastname,
             'fullname' => $this->name . ' ' . $this->lastname,
             'email' => $this->email,
             'username' => $this->username,
-            'role' => $roleName
+            'role' => $roleName,
+            'quotes' => isset($quotes) ? $quotes : 0,
         ];
     }
 }

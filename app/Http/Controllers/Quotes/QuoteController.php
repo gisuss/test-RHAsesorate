@@ -24,11 +24,16 @@ class QuoteController extends Controller
      * @param mixed $quoteStoreFavsResponsable
      * @return void
      */
-    public function storeFavQuotes(QuoteStoreFavsResponsable $quoteStoreFavsResponsable)
-    {
+    public function storeFavQuotes(QuoteStoreFavsResponsable $quoteStoreFavsResponsable) {
         return $quoteStoreFavsResponsable;
     }
 
+    /**
+     * Store a fav quote.
+     * 
+     * @param int $quote
+     * @return void
+     */
     public function deleteFavQuotes(int $quote) {
         return new QuoteDeleteFavsResponsable($quote);
     }

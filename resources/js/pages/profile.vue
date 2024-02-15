@@ -1,5 +1,5 @@
 <template>
-    <div class="py-4">
+    <div class="py-6 px-4">
         <v-img
             class="mx-auto my-6"
             max-width="228"
@@ -23,6 +23,7 @@
             class="mx-auto pa-12 pb-8"
             elevation="8"
             max-width="448"
+            min-width="400"
             rounded="lg"
         >
             <div class="text-subtitle-1 text-medium-emphasis">First Name</div>
@@ -33,6 +34,7 @@
                 prepend-inner-icon="$account"
                 variant="outlined"
                 v-model="form.name"
+                :rules="[rules.required]"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">Last Name</div>
@@ -43,6 +45,8 @@
                 prepend-inner-icon="$account"
                 variant="outlined"
                 v-model="form.lastname"
+                :rules="[rules.required]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
@@ -53,18 +57,21 @@
                 prepend-inner-icon="$email"
                 variant="outlined"
                 v-model="form.email"
+                :rules="[rules.required]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis">Role</div>
 
-            <v-autocomplete
+            <v-combobox
                 v-model="form.role"
                 :items="roles"
                 density="compact"
                 variant="outlined"
                 clearable
-                chips
-            ></v-autocomplete>
+                :rules="[rules.required]"
+                class="mt-2"
+            ></v-combobox>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Password</div>
 
@@ -77,6 +84,8 @@
                 variant="outlined"
                 @click:append-inner="visible1 = !visible1"
                 v-model="form.password"
+                :rules="[rules.required, rules.counter]"
+                class="mt-2"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Confirm Password</div>
@@ -90,9 +99,11 @@
                 variant="outlined"
                 @click:append-inner="visible2 = !visible2"
                 v-model="form.confirm_password"
+                :rules="[rules.required, rules.counter]"
+                class="mt-2"
             ></v-text-field>
 
-            <v-card
+            <!-- <v-card
                 class="mb-12"
                 color="surface-variant"
                 variant="tonal"
@@ -100,7 +111,7 @@
                 <v-card-text class="text-medium-emphasis text-caption">
                     We've been waiting for you! Join our growing community and create an account to get personalized recommendations.
                 </v-card-text>
-            </v-card>
+            </v-card> -->
 
             <v-btn
                 block
@@ -135,8 +146,6 @@
 
     export default {
         data: () => ({
-            visible1: false,
-            visible2: false,
             roles: ['Admin', 'Client'],
             user: [],
         }),
@@ -167,6 +176,14 @@
             const router = useRouter()
             const store = useStore()
 
+            let rules = {
+				required: value => !!value || 'Field required.',
+				counter: value => value.length <= 16 || 'Maximum 16 characters.',
+				email: value => {
+					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+					return pattern.test(value) || 'Invalid e-mail.'
+				},
+			};
             let form = reactive({
                 name: '',
                 lastname: '',
@@ -175,6 +192,8 @@
                 password: null,
                 confirm_password: null,
             });
+            let visible1 = ref(false);
+            let visible2 = ref(false);
             let errors = ref([])
 
             const updateUsr = async() => {
@@ -186,7 +205,7 @@
                         'Accept': 'application/json',
                     }
                 }).then(res=>{
-                    console.log(res);
+                    // console.log(res);
                     if(res.status == 200) {
                         alert("Profile updated.");
                         router.push({name:'Dashboard'});
@@ -198,7 +217,10 @@
             return{
                 form,
                 updateUsr,
-                errors
+                errors,
+                rules,
+                visible1,
+                visible2
             }
         }
     }
