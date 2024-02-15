@@ -2,11 +2,11 @@
 
 namespace App\Repositories\Users;
 
-use App\Models\{User, Identification};
+use App\Models\{User};
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\{Collection,Str};
-use Illuminate\Support\Facades\{Hash,Mail,Auth,Storage};
+use Illuminate\Support\Facades\{Hash,Auth};
 use Illuminate\Http\{Response,Request};
 use Carbon\Carbon;
 use Spatie\Permission\Models\Role;

@@ -23,6 +23,8 @@ class UserUpdateRequest extends FormRequest
             'role' => 'role',
             'name' => 'name',
             'lastname' => 'lastname',
+            'password' => 'password',
+            'confirm_password' => 'confirmation password'
         ];
     }
 
@@ -46,6 +48,9 @@ class UserUpdateRequest extends FormRequest
             'lastname.regex' => 'The :attribute It should only contain letters and spaces.',
             'role.required' => 'The :attribute is required.',
             'role.exists' => 'The :attribute does not exist.',
+            'password.min' => 'The :attribute must contain at least 8 characters.',
+            'password.max' => 'The :attribute must be less than 16 characters.',
+            'confirm_password.same' => 'The :attribute must be same that password.',
         ];
     }
 
@@ -61,6 +66,8 @@ class UserUpdateRequest extends FormRequest
             'lastname' => 'required|string|max:255|regex:/^[\pL\s\-]+$/u',
             'email' => ['required', 'max:255', 'email', Rule::unique('users','email')->ignore($this->user)],
             'role' => 'required|string|exists:roles,name',
+            'password' => 'nullable|min:8|max:16',
+            'confirm_password' => 'nullable|same:password',
         ];
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\{UserUpdateRequest,UserActivateRequest};
 use App\Responsable\Users\{ UserShowResponsable,UserDestroyResponsable, UserIndexResponsable,UserGetByRoleResponsable,
                             UserStoreResponsable, UserUpdateResponsable, UserDesactivateResponsable,UserActivateResponsable,
+                            UserShowFavQuotes
                           };
 
 class UserController extends Controller

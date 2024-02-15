@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use App\Repositories\Users\UserRepository;
 use App\Helpers\StandardResponse;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\{DB};
+use Illuminate\Support\Facades\{DB, Hash};
 
 class UserUpdateResponsable implements Responsable
 {
@@ -32,7 +32,20 @@ class UserUpdateResponsable implements Responsable
 					$usuario->syncRoles([$this->data['role']]);
                 }
 
-                $update = $usuario->update($this->data);
+                if (isset($this->data['password'])) {
+                    $update = $usuario->update([
+                        'name' => $this->data['name'],
+                        'lastname' => $this->data['lastname'],
+                        'email' => $this->data['email'],
+                        'password' => Hash::make($this->data['password'])
+                    ]);
+                }else{
+                    $update = $usuario->update([
+                        'name' => $this->data['name'],
+                        'lastname' => $this->data['lastname'],
+                        'email' => $this->data['email'],
+                    ]); 
+                }
             DB::commit();
             return $this->updateResponse(UserResource::make($usuario), $update ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         } catch (\Throwable $e) {
