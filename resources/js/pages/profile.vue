@@ -207,6 +207,9 @@
                 }).then(res=>{
                     // console.log(res);
                     if(res.status == 200) {
+                        if (form.role != store.getters.getRole) {
+                            store.dispatch('setRole', form.role);
+                        }
                         alert("Profile updated.");
                         router.push({name:'Dashboard'});
                     }
