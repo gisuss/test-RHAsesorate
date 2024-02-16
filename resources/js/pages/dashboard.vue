@@ -7,30 +7,26 @@
         >
             <v-card-title>
                 <v-row>
-                    <v-col>Ramdom Quotes</v-col>
+                    <v-col>Dashboard</v-col>
                     <v-spacer></v-spacer>
                     <v-col class="d-flex justify-end">
                         <v-btn 
                             class="text-blue text-decoration-none"
-                            size="large"
                             color="blue"
                             variant="tonal"
                             rounded="lg"
                             :disabled="disabledBtn"
+                            prepend-icon="$reload"
                             @click="randomQuotes(2000, 'disabledBtn')"
-                        >
-                            <v-icon icon="$reload" class="mr-4" />
-                            Reload
-                        </v-btn>
+                        >Reload</v-btn>
                     </v-col>
                 </v-row>
-                
             </v-card-title>
             <v-card-text>
                 <v-container>
                     <v-row>
-                        <v-col v-for="quote in quotes" :key="quote.id" cols="4">
-                            <v-card rounded="lg" hover min-width="150px" height="270" class="pa-2">
+                        <v-col v-for="quote in quotes" :key="quote.id" cols="12" sm="6" md="4">
+                            <v-card rounded="lg" hover min-width="150px" height="270" variant="tonal" class="pa-2">
                                 <v-card-title>
                                     <v-row>
                                         <v-col>Quote #{{ quote.id }}</v-col>

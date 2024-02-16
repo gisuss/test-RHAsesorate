@@ -3,6 +3,7 @@
             <v-card
                 flat
                 rounded="lg"
+                class="pa-4"
             >
                 <v-card-title>
                     <v-row>
@@ -11,10 +12,9 @@
                         <v-col class="d-flex justify-end">
                             <v-btn
                                 class="text-blue text-decoration-none"
-                                size="large"
                                 color="blue"
-                                :to="{name : 'Dashboard' }"
                                 variant="tonal"
+                                :to="{name : 'Dashboard' }"
                             >
                                 Go to dashboard <v-icon icon="$chevron_right"></v-icon>
                             </v-btn>

@@ -18,7 +18,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app full-height="true">
+        <v-app full-height>
             <v-main class="d-flex justify-center" >
                 <v-btn style="top: 20px; right: 20px; z-index: 10;" active variant="elevated" position="fixed" icon elevation="20" @click="toggleTheme"><v-icon icon="$moon" /></v-btn>
                 <router-view></router-view>

@@ -5,14 +5,13 @@
             rounded="lg"
             class="pa-4"
         >
-            <v-card-title>
+            <v-card-title class="mb-4">
                 <v-row>
                     <v-col>Favorites Quotes</v-col>
                     <v-spacer></v-spacer>
                     <v-col class="d-flex justify-end">
                         <v-btn
                             class="text-blue text-decoration-none"
-                            size="large"
                             color="blue"
                             :to="{name : 'Dashboard' }"
                             variant="tonal"
@@ -24,8 +23,8 @@
             </v-card-title>
             <v-card-text>
                 <v-row>
-                    <v-col v-for="quote in quotes" :key="quote.id" cols="4">
-                        <v-card rounded="lg" hover min-width="150px" height="270" class="pa-2">
+                    <v-col v-for="quote in quotes" :key="quote.id" cols="12" sm="6" md="4">
+                        <v-card rounded="lg" hover min-width="200px" height="270" variant="tonal" class="pa-2">
                             <v-card-title>
                                 <v-row>
                                     <v-col>Quote #{{ quote.id }}</v-col>
