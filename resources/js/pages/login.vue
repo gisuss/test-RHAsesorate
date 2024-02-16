@@ -3,7 +3,7 @@
         <v-img
             class="mx-auto my-6"
             max-width="228"
-            src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+            :src = "this.$store.getters.getTheme == 'dark' ? src_dark : src_light"
         ></v-img>
 
         <v-card
@@ -91,6 +91,8 @@
     import { reactive,ref } from 'vue'
     import { useRouter } from "vue-router"
     import { useStore } from 'vuex'
+    import imageDark from "../../../public/vuetify_dark.svg"
+    import imageLight from "../../../public/vuetify_light.svg"
 
     export default{
         setup() {
@@ -109,6 +111,8 @@
                 email_username: '',
                 password: ''
             });
+            let src_dark = imageDark;
+            let src_light = imageLight;
             let visible = ref(false);
             let error = ref('');
 
@@ -130,7 +134,9 @@
                 login,
                 error,
                 visible,
-                rules
+                rules,
+                src_dark,
+                src_light,
             }
         }
     }

@@ -3,7 +3,7 @@
         <v-img
             class="mx-auto my-6"
             max-width="228"
-            src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+            :src = "this.$store.getters.getTheme == 'dark' ? src_dark : src_light"
         ></v-img>
 
         <v-card
@@ -143,11 +143,16 @@
     import { reactive,ref } from 'vue'
     import { useRouter } from "vue-router"
     import { useStore } from 'vuex'
+    import { useTheme } from 'vuetify'
+    import imageDark from "../../../public/vuetify_dark.svg"
+    import imageLight from "../../../public/vuetify_light.svg"
 
     export default {
         data: () => ({
             roles: ['Admin', 'Client'],
             user: [],
+            src_dark: imageDark,
+            src_light: imageLight,
         }),
         mounted() {
 			this.getData(this.$store.getters.getUserId)
@@ -173,8 +178,9 @@
 			},
         },
         setup() {
-            const router = useRouter()
-            const store = useStore()
+            const router = useRouter();
+            const store = useStore();
+            const theme = useTheme();
 
             let rules = {
 				required: value => !!value || 'Field required.',
@@ -192,6 +198,7 @@
                 password: null,
                 confirm_password: null,
             });
+            let currentTheme = (store.getters.getTheme);
             let visible1 = ref(false);
             let visible2 = ref(false);
             let errors = ref([])
@@ -223,7 +230,8 @@
                 errors,
                 rules,
                 visible1,
-                visible2
+                visible2,
+                currentTheme
             }
         }
     }
