@@ -1,9 +1,7 @@
 <template>
-    <div class="container py-6 px-4">
-        <div class="row justify-content-center">
+    <v-container class="py-6 px-4">
             <v-card
                 flat
-                max-width="100%"
                 rounded="lg"
             >
                 <v-card-title>
@@ -23,18 +21,17 @@
                         </v-col>
                     </v-row>
                 </v-card-title>
-                <v-data-table
-                    :headers="headers"
-                    :items="items"
-                    :items-per-page="15"
-                    no-data-text="No data."
-                    class="pa-4"
-                    mobile-breakpoint="450"
-                    style="color: black !important;"
-                ></v-data-table>
+                <v-card-text>
+                    <v-data-table
+                        :headers="headers"
+                        :items="items"
+                        :items-per-page=15
+                        no-data-text="No data."
+                        class="pa-4"
+                    ></v-data-table>
+                </v-card-text>
             </v-card>
-        </div>
-    </div>
+    </v-container>
 </template>
   
 <script>

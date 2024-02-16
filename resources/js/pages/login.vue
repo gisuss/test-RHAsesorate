@@ -109,7 +109,7 @@
                 email_username: '',
                 password: ''
             });
-            let visible = false;
+            let visible = ref(false);
             let error = ref('');
 
             const login = async() => {

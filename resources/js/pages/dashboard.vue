@@ -1,58 +1,56 @@
 <template>
-    <div class="container py-6 px-4">
-        <div class="row justify-content-center">
-            <v-card
-                flat
-                max-width="100%"
-                rounded="lg"
-            >
-                <v-card-title>
+    <v-container class="py-6 px-4">
+        <v-card
+            flat
+            rounded="lg"
+            class="pa-4"
+        >
+            <v-card-title>
+                <v-row>
+                    <v-col>Ramdom Quotes</v-col>
+                    <v-spacer></v-spacer>
+                    <v-col class="d-flex justify-end">
+                        <v-btn 
+                            class="text-blue text-decoration-none"
+                            size="large"
+                            color="blue"
+                            variant="tonal"
+                            rounded="lg"
+                            :disabled="disabledBtn"
+                            @click="randomQuotes(2000, 'disabledBtn')"
+                        >
+                            <v-icon icon="$reload" class="mr-4" />
+                            Reload
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                
+            </v-card-title>
+            <v-card-text>
+                <v-container>
                     <v-row>
-                        <v-col>Ramdom Quotes</v-col>
-                        <v-spacer></v-spacer>
-                        <v-col class="d-flex justify-end">
-                            <v-btn 
-                                class="text-blue text-decoration-none"
-                                size="large"
-                                color="blue"
-                                variant="tonal"
-                                rounded="lg"
-                                :disabled="disabledBtn"
-                                @click="randomQuotes(2000, 'disabledBtn')"
-                            >
-                                <v-icon icon="$reload" class="mr-4" />
-                                Reload
-                            </v-btn>
+                        <v-col v-for="quote in quotes" :key="quote.id" cols="4">
+                            <v-card rounded="lg" hover min-width="150px" height="270" class="pa-2">
+                                <v-card-title>
+                                    <v-row>
+                                        <v-col>Quote #{{ quote.id }}</v-col>
+                                        <v-spacer></v-spacer>
+                                        <v-col class="d-flex justify-end">
+                                            <v-btn @click="toFav(quote.id)" size="small" color="red" variant="text" icon="$heart"></v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-card-title>
+                                <v-card-text class="scroll-quote">
+                                    <h2>{{ quote.author }}</h2>
+                                    <p>{{ quote.quote }}</p>
+                                </v-card-text>
+                            </v-card>
                         </v-col>
                     </v-row>
-                    
-                </v-card-title>
-                <v-card-text>
-                    <v-container fluid>
-                        <v-row>
-                            <v-col v-for="quote in quotes" :key="quote.id" cols="4">
-                                <v-card rounded="lg" hover min-width="150px" height="270" class="pa-2">
-                                    <v-card-title>
-                                        <v-row>
-                                            <v-col>Quote #{{ quote.id }}</v-col>
-                                            <v-spacer></v-spacer>
-                                            <v-col class="d-flex justify-end">
-                                                <v-btn @click="toFav(quote.id)" size="small" color="red" variant="text" icon="$heart"></v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-title>
-                                    <v-card-text class="scroll-quote">
-                                        <h2>{{ quote.author }}</h2>
-                                        <p>{{ quote.quote }}</p>
-                                    </v-card-text>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-            </v-card>
-        </div>
-    </div>
+                </v-container>
+            </v-card-text>
+        </v-card>
+    </v-container>
 </template>
 
 <script>

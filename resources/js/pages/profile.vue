@@ -115,7 +115,7 @@
 
             <v-btn
                 block
-                class="mb-8"
+                class="my-8"
                 color="blue"
                 size="large"
                 variant="tonal"

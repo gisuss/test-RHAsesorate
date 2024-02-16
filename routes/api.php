@@ -18,6 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/download/CV-Gisuss-SPA-ENG_02-24.pdf', function () {
+    return response()->download(public_path('CV-Gisuss-SPA-ENG_02-24.pdf'));
+});
+
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [App\Http\Controllers\Auth\AuthController::class, 'login']);
     Route::post('register', [App\Http\Controllers\Users\UserController::class, 'store']);
