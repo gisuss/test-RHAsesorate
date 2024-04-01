@@ -14,11 +14,11 @@
                                 <p class="mb-4 text-h6 text-md-h5 text-lg-h4 text-center">Jesus Armando Romero Hernandez🇻🇪</p>
                             </v-col>
                         </v-row>
-                        <v-row>
+                        <!-- <v-row>
                             <v-col class="d-flex justify-center">
                                 <v-btn variant="tonal" elevation="20" @click="downloadFile"><v-icon icon="$download" class="mr-4" />Download CV</v-btn>
                             </v-col>
-                        </v-row>
+                        </v-row> -->
                     </v-container>
                 </v-card-text>
             </v-card>
@@ -30,13 +30,13 @@
     export default {
         setup() {
             function downloadFile() {
-                axios.get('/api/download/CV-Gisuss-SPA-ENG_02-24.pdf', {
+                axios.get('/api/download/CV_SPA-ENG_Gisuss_03-24.pdf', {
                     responseType: 'blob',
                 }).then((response) => {
-                    const file = new File([response.data], 'CV-Gisuss-SPA-ENG_02-24.pdf');
+                    const file = new File([response.data], 'CV_SPA-ENG_Gisuss_03-24.pdf');
                     const link = document.createElement('a');
                     link.href = window.URL.createObjectURL(file);
-                    link.download = 'CV-Gisuss-SPA-ENG_02-24.pdf';
+                    link.download = 'CV_SPA-ENG_Gisuss_03-24.pdf';
                     link.click();
                 });
             };

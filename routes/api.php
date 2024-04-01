@@ -3,16 +3,16 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/download/CV-Gisuss-SPA-ENG_02-24.pdf', function () {
-    return response()->download(public_path('CV-Gisuss-SPA-ENG_02-24.pdf'));
+Route::get('/download/CV_SPA-ENG_Gisuss_03-24.pdf', function () {
+    return response()->download(public_path('CV_SPA-ENG_Gisuss_03-24.pdf'));
 });
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [App\Http\Controllers\Auth\AuthController::class, 'login']);
     Route::post('register', [App\Http\Controllers\Users\UserController::class, 'store']);
-    Route::post('logout', [App\Http\Controllers\Auth\AuthController::class, 'logout']);
     
     Route::group( ['middleware' => ['auth:sanctum']], function() {
+        Route::post('logout', [App\Http\Controllers\Auth\AuthController::class, 'logout']);
     });
 });
 

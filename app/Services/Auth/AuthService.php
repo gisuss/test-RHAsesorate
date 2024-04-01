@@ -79,8 +79,8 @@ class AuthService
     }
 
     public function logout() {
-        $id = auth()->id();
         $array = [];
+        $id = Auth::user()->id;
 
         if (isset($id)) {
             $user = $this->userModel->find($id);

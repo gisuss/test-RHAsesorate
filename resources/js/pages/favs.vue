@@ -130,10 +130,4 @@
 </script>
 
 <style scoped>
-.scroll-quote::-webkit-scrollbar {
-    width: 8px;     /* Tamaño del scroll en vertical */
-    height: 8px;    /* Tamaño del scroll en horizontal */
-    display: none;  /* Ocultar scroll */
-    overflow-y: scroll;
-}
 </style>

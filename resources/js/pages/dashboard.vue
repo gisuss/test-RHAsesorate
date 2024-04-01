@@ -10,10 +10,11 @@
                 <v-container>
                     <v-row>
                         <v-col>
-                            <v-text-field 
-                                v-model="limit" 
+                            <v-text-field
+                                v-model="limit"
                                 dense flat
                                 type="number"
+                                min="1"
                                 label="Quantity"
                                 variant="outlined"
                                 @change="getQuote"></v-text-field>
@@ -65,6 +66,7 @@
 
 <script>
     import { ref } from 'vue'
+    import { useStore } from 'vuex';
     
     export default {
         name: "DashboardPage",
@@ -73,7 +75,7 @@
                 quotes: [],
                 snackbar: false,
                 disabledBtn: false,
-                limit: 5,
+                limit: ref(this.$store.getters.getQuantity),
                 title: null,
                 color: null,
             };
@@ -84,7 +86,6 @@
         methods: {
             async getQuote() {
                 this.$store.dispatch('setQuantity', this.limit);
-                // this.limit = this.$store.getters.getQuantity;
                 axios.get(`api/quotes/random/${this.limit}`, {
 					headers: {
 						'Authorization': `Bearer ${this.$store.getters.getToken}`,
@@ -134,17 +135,12 @@
                     }
                     this.snackbar = true;
 				}).catch(err => {
-                    errors.value = err.response.data.message
+                    this.title = err.message;
+                    this.color = 'red-darken-4';
+                    this.snackbar = true;
 				});
             },
         },
-        setup() {
-            let errors = ref([]);
-
-            return{
-                errors
-            }
-        }
     };
 </script>
 

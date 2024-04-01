@@ -66,12 +66,12 @@
                 await axios.post('/api/auth/logout',{},
                 {
                     headers: {
-                        // 'Authorization': `Bearer ${store.getters.getToken}`,
+                        'Authorization': `Bearer ${store.getters.getToken}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
                     }
                 }).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if(res.data.success) {
                         store.dispatch('removeToken');
                         store.dispatch('removeUserId');
