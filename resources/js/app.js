@@ -10,7 +10,7 @@ import app from './layouts/App.vue'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
-import { mdiAccount, mdiAccountPlus, mdiAccountSupervisor, mdiChevronRight, mdiDownload, mdiEmail, mdiEye, mdiEyeOff, mdiHeart, mdiHome, mdiLock, mdiLogin, mdiLogout, mdiMoonFirstQuarter, mdiReload, mdiStar, mdiTrashCan, mdiViewDashboard, mdiWeatherNight } from '@mdi/js'
+import { mdiAccount, mdiAccountCancel, mdiAccountCheck, mdiAccountPlus, mdiAccountSupervisor, mdiChevronRight, mdiDownload, mdiEmail, mdiEye, mdiEyeOff, mdiHeart, mdiHome, mdiLock, mdiLogin, mdiLogout, mdiMoonFirstQuarter, mdiReload, mdiStar, mdiTrashCan, mdiViewDashboard, mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
@@ -38,7 +38,10 @@ const vuetify = createVuetify({
       trash: mdiTrashCan,
       users: mdiAccountSupervisor,
       moon: mdiWeatherNight,
-      download: mdiDownload
+      sun: mdiWhiteBalanceSunny,
+      download: mdiDownload,
+      block: mdiAccountCancel,
+      activate: mdiAccountCheck
     },
     sets: {
       mdi,

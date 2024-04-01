@@ -42,23 +42,21 @@ class UserRepository extends Repository
      * Metodo activar un usuario.
      *
      * @param int $user
-     * @param array $data
      * @return bool
      */
-    public function activar(int $user, array $data) : bool {
+    public function activar(int $user) : bool {
         $band = false;
-        $usuario = $this->model->find($user);
+        $usuario = $this->model->where('id', $user)->first();
+
         if (isset($usuario) && ($usuario->id <> Auth::user()->id)) {
             $usuario->update([
                 'active' => true,
                 'remember_token' => null,
             ]);
-            $usuario->syncRoles([$data['role']]);
-
-            // Mail::to($usuario->email)->send(new UserActivateMail($usuario));
 
             $band = true;
         }
+        
         return $band;
     }
 

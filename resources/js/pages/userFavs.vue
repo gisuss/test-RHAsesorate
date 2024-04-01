@@ -7,7 +7,7 @@
         >
             <v-card-title class="mb-4">
                 <v-row>
-                    <v-col>Favorites Quotes</v-col>
+                    <v-col>User Favorites Quotes</v-col>
                     <v-spacer></v-spacer>
                     <v-col class="d-flex justify-end">
                         <v-btn
@@ -55,10 +55,8 @@
 </template>
 
 <script>
-    import { ref } from 'vue'
-
+    import { useRoute } from 'vue-router';
     export default {
-        name: "FavsPage",
         data() {
             return {
                 quotes: [],
@@ -66,10 +64,13 @@
                 snackbar: false,
                 title: null,
                 color: null,
+                user_id: null
             };
         },
         created() {
-            this.getDataFromApi(this.$store.getters.getUserId);
+            const route = useRoute();
+            this.user_id = Number(route.params.id);
+            this.getDataFromApi(this.user_id);
         },
         methods: {
             getDataFromApi(id) {
@@ -97,7 +98,7 @@
             },
             toTrash(id) {
                 let fd = {
-                    user_id: this.$store.getters.getUserId,
+                    user_id: this.user_id,
                     quote_id: id
                 };
 
@@ -110,7 +111,7 @@
 				})
 				.then(response => {
                     if (response.data.success) {
-                        this.getDataFromApi(this.$store.getters.getUserId);
+                        this.getDataFromApi(this.user_id);
                         this.title = response.data.message;
                         this.color = 'teal-darken-4';
                         this.snackbar = true;
@@ -130,10 +131,4 @@
 </script>
 
 <style scoped>
-.scroll-quote::-webkit-scrollbar {
-    width: 8px;     /* Tamaño del scroll en vertical */
-    height: 8px;    /* Tamaño del scroll en horizontal */
-    display: none;  /* Ocultar scroll */
-    overflow-y: scroll;
-}
 </style>

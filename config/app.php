@@ -185,6 +185,7 @@ return [
         /*
          * Package Service Providers...
          */
+        \Gisuss\Quotes\Providers\QuoteProvider::class,
 
         /*
          * Application Service Providers...

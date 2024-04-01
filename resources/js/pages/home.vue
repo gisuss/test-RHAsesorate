@@ -6,7 +6,7 @@
                 width="100%"
                 rounded="lg"
             >
-                <v-card-title style="line-height: normal;" class="text-h4 text-md-3 text-lg-h2 text-center">Welcome to my RH Asesorate Test👋🏽</v-card-title>
+                <v-card-title style="line-height: normal; text-wrap: pretty;" class="text-h4 text-md-3 text-lg-h2 text-center">Welcome to my RH Asesorate Test👋🏽</v-card-title>
                 <v-card-text>
                     <v-container fluid>
                         <v-row>

@@ -42,9 +42,7 @@ class AuthService
                 ];
             }else{
                 if ($user->active) {
-                    if (config('app.env') === 'production') {
-                        $user->tokens()->delete();
-                    }
+                    $user->tokens()->delete();
 
                     $token = $user->createToken("login-".$data['email_username']);
         

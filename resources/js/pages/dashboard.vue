@@ -5,27 +5,33 @@
             rounded="lg"
             class="pa-4"
         >
-            <v-card-title>
-                <v-row>
-                    <v-col>Dashboard</v-col>
-                    <v-spacer></v-spacer>
-                    <v-col class="d-flex justify-end">
-                        <v-btn 
-                            class="text-blue text-decoration-none"
-                            color="blue"
-                            variant="tonal"
-                            rounded="lg"
-                            :disabled="disabledBtn"
-                            prepend-icon="$reload"
-                            @click="randomQuotes(2000, 'disabledBtn')"
-                        >Reload</v-btn>
-                    </v-col>
-                </v-row>
-            </v-card-title>
+            <v-card-title>Dashboard</v-card-title>
             <v-card-text>
                 <v-container>
                     <v-row>
-                        <v-col v-for="quote in quotes" :key="quote.id" cols="12" sm="6" md="4">
+                        <v-col>
+                            <v-text-field 
+                                v-model="limit" 
+                                dense flat
+                                type="number"
+                                label="Quantity"
+                                variant="outlined"
+                                @change="getQuote"></v-text-field>
+                        </v-col>
+                        <v-col class="d-flex justify-end align-center">
+                            <v-btn 
+                                class="text-blue text-decoration-none"
+                                color="blue"
+                                variant="tonal"
+                                rounded="lg"
+                                :disabled="disabledBtn"
+                                prepend-icon="$reload"
+                                @click="randomQuotes(2000, 'disabledBtn')"
+                            >Reload</v-btn>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col v-for="quote in quotes" :key="quote.id" cols="12" sm="12" md="6" lg="4" xl="2">
                             <v-card rounded="lg" hover min-width="150px" height="270" variant="tonal" class="pa-2">
                                 <v-card-title>
                                     <v-row>
@@ -37,7 +43,7 @@
                                     </v-row>
                                 </v-card-title>
                                 <v-card-text class="scroll-quote">
-                                    <h2>{{ quote.author }}</h2>
+                                    <h3>{{ quote.author }}</h3>
                                     <p>{{ quote.quote }}</p>
                                 </v-card-text>
                             </v-card>
@@ -46,6 +52,14 @@
                 </v-container>
             </v-card-text>
         </v-card>
+
+        <v-snackbar v-model="snackbar" vertical :color="color" elevation="24" >
+            <div class="text-subtitle-1 pb-2">{{ title }}</div>
+
+            <template v-slot:actions>
+                <v-btn color="white" variant="text" @click="snackbar = false">Close</v-btn>
+            </template>
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -57,7 +71,11 @@
         data() {
             return {
                 quotes: [],
+                snackbar: false,
                 disabledBtn: false,
+                limit: 5,
+                title: null,
+                color: null,
             };
         },
         created() {
@@ -65,17 +83,25 @@
         },
         methods: {
             async getQuote() {
-                let url = 'https://dummyjson.com/quotes/random';
-
-                for (let index = 0; index < 5; index++) {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        const fetchData = await response.json();
-                        this.quotes[index] = fetchData;
-                    }else{
-                        alert("Error HTTP " + response.status);
+                this.$store.dispatch('setQuantity', this.limit);
+                // this.limit = this.$store.getters.getQuantity;
+                axios.get(`api/quotes/random/${this.limit}`, {
+					headers: {
+						'Authorization': `Bearer ${this.$store.getters.getToken}`,
+						'Content-Type': 'application/json',
+						'Accept': 'application/json',
+					}
+				})
+				.then(response => {
+					// console.log(response);
+                    if (response.data.success) {
+                        this.quotes = response.data.data;
                     }
-                }
+				}).catch(err => {
+                    this.title = err.message;
+                    this.color = 'red-darken-4';
+                    this.snackbar = true;
+				});
             },
             randomQuotes(timeOutBtn, btn) {
                 this[btn] = true;
@@ -90,7 +116,7 @@
                     quote_id: id
                 };
 
-                axios.post('/api/quotes/store', fd, {
+                axios.post('/api/quotes/to-fav', fd, {
 					headers: {
 						'Authorization': `Bearer ${this.$store.getters.getToken}`,
 						'Content-Type': 'application/json',
@@ -99,9 +125,14 @@
 				})
 				.then(response => {
 					// console.log(response);
-                    if (response.status == 200) {
-                        alert("Quote starred.")
+                    if (response.data.success) {
+                        this.title = response.data.message;
+                        this.color = 'teal-darken-4';
+                    }else{
+                        this.title = response.data.message;
+                        this.color = 'red-darken-4';
                     }
+                    this.snackbar = true;
 				}).catch(err => {
                     errors.value = err.response.data.message
 				});

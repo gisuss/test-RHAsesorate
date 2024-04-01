@@ -38,6 +38,7 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'role' => $roleName,
             'quotes' => isset($quotes) ? $quotes : 0,
+            'active' => $this->active
         ];
     }
 }

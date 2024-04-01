@@ -122,6 +122,7 @@
                         store.dispatch('setToken',res.data.token);
                         store.dispatch('setUserId',res.data.user_id);
                         store.dispatch('setRole',res.data.role);
+                        store.dispatch('setQuantity',5);
                         router.push({name:'Dashboard'});
                     }else{
                         error.value = res.data.message;

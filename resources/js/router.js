@@ -4,6 +4,7 @@ import login from './pages/login.vue';
 import register from './pages/register.vue';
 import dashboard from './pages/dashboard.vue';
 import favs from './pages/favs.vue';
+import userFavs from './pages/userFavs.vue';
 import profile from './pages/profile.vue';
 import users from './pages/users.vue';
 import store from './store/index.js';
@@ -42,6 +43,14 @@ const routes = [
         path : '/favs',
         name : 'Favs',
         component : favs,
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path : '/user-favs/:id',
+        name : 'UserFavs',
+        component : userFavs,
         meta:{
             requiresAuth:true
         }

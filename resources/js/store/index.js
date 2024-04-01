@@ -4,15 +4,20 @@ const store = createStore({
     state: {
         //define variables
         token : localStorage.getItem('token') || 0,
+        quantity : localStorage.getItem('quantity') || 5,
         user_id : localStorage.getItem('user_id') || 0,
         role : localStorage.getItem('role') || 'NO ROLE',
         theme : localStorage.getItem('theme') || 'dark',
+        drawer: true
     },
 
     mutations:{
         // update variable value
         UPDATE_TOKEN(state,payload){
             state.token = payload
+        },
+        UPDATE_QUANTITY(state,payload){
+            state.quantity = payload
         },
         UPDATE_USER_ID(state,payload){
             state.user_id = payload
@@ -22,6 +27,9 @@ const store = createStore({
         },
         UPDATE_THEME(state,payload){
             state.theme = payload
+        },
+        toggleDrawer(state) {
+            state.drawer = !state.drawer
         }
     },
 
@@ -35,6 +43,15 @@ const store = createStore({
         removeToken(context){
             localStorage.removeItem('token');
             context.commit('UPDATE_TOKEN', 0);
+        },
+        // QUANTITY
+        setQuantity(context,payload){
+            localStorage.setItem('quantity',payload)
+            context.commit('UPDATE_QUANTITY',payload)
+        },
+        removeQuantity(context){
+            localStorage.removeItem('quantity');
+            context.commit('UPDATE_QUANTITY', 5);
         },
         // USER ID
         setUserId(context,payload){
@@ -69,6 +86,9 @@ const store = createStore({
         // get state variable value
         getToken: function(state){
             return state.token
+        },
+        getQuantity: function(state){
+            return state.quantity
         },
         getUserId: function(state){
             return state.user_id

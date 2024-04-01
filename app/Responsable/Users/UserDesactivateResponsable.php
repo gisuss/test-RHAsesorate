@@ -34,7 +34,7 @@ class UserDesactivateResponsable implements Responsable
                 return $this->updateResponse(UserResource::make($this->repository->find($this->user)), Response::HTTP_OK);
             }else{
                 return response()->json([
-                    'message' => 'Usuario inválido.',
+                    'message' => 'Invalid User.',
                     'code' => Response::HTTP_BAD_REQUEST,
                 ], Response::HTTP_BAD_REQUEST);
             }
@@ -42,7 +42,7 @@ class UserDesactivateResponsable implements Responsable
             DB::rollBack();
             return response()->json([
                 'code' =>  Response::HTTP_NOT_FOUND,
-                'message' => 'No se puede desactivar el usuario.',
+                'message' => 'Error.',
                 'data' => $e->getMessage(),
             ], Response::HTTP_NOT_FOUND);
         }

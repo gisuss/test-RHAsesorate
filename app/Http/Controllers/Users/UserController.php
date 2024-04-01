@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\{UserUpdateRequest,UserActivateRequest};
+use App\Http\Requests\{UserUpdateRequest};
 use App\Responsable\Users\{ UserShowResponsable,UserDestroyResponsable, UserIndexResponsable,UserGetByRoleResponsable,
                             UserStoreResponsable, UserUpdateResponsable, UserDesactivateResponsable,UserActivateResponsable,
                             UserShowFavQuotes
@@ -100,8 +100,8 @@ class UserController extends Controller
      * @param int $user
      * @return void
      */
-    public function activarUser(int $user, UserActivateRequest $request) {
-        return new UserActivateResponsable($user, $request->validated());
+    public function activarUser(int $user) {
+        return new UserActivateResponsable($user);
     }
 
     /**
